@@ -3,6 +3,7 @@ import Header from './Header';
 import Dummy from './Dummy';
 import SolutionLetters from './Solutionletters';
 import ErrorLetters from './ErrorLetters';
+import Form from './Form';
 // api
 import getWordFromApi from '../services/api';
 // styles
@@ -25,27 +26,18 @@ function App() {
 
   // events
 
-  const handleKeyDown = (ev) => {
-    // Sabrías decir para qué es esta línea
-    ev.target.setSelectionRange(0, 1);
-  };
-
-  const handleChange = (ev) => {
-    let re = /^[a-zA-ZñÑá-úÁ-Ú´]$/; //add regular pattern
-    if (re.test(ev.target.value) || ev.target.value === '') {
-      handleLastLetter(ev.target.value);
-    }
-  };
-
-  const handleSubmit = (ev) => {
-    ev.preventDefault();
-  };
-
   const getNumberOfErrors = () => {
     const errorLetters = userLetters.filter(
       (letter) => word.includes(letter) === false
     );
     return errorLetters.length;
+  };
+
+  const handleChange = (value) => {
+    let re = /^[a-zA-ZñÑá-úÁ-Ú´]$/; //add regular pattern
+    if (re.test(value) || value === '') {
+      handleLastLetter(value);
+    }
   };
 
   const handleLastLetter = (value) => {
@@ -59,30 +51,13 @@ function App() {
   };
 
   return (
-    <div className='page'>
+    <div className="page">
       <Header />
-      <main className='main'>
+      <main className="main">
         <section>
           <SolutionLetters word={word} userLetters={userLetters} />
           <ErrorLetters word={word} userLetters={userLetters} />
-
-          <form className='form' onSubmit={handleSubmit}>
-            <label className='title' htmlFor='last-letter'>
-              Escribe una letra:
-            </label>
-            <input
-              autoFocus
-              autoComplete='off'
-              className='form__input'
-              maxLength='1'
-              type='text'
-              name='last-letter'
-              id='last-letter'
-              value={lastLetter}
-              onKeyDown={handleKeyDown}
-              onChange={handleChange}
-            />
-          </form>
+          <Form handleChange={handleChange} lastLetter={lastLetter} />
           <Dummy numberOfErrors={getNumberOfErrors()} />
         </section>
       </main>
