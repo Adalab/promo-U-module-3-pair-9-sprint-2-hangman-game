@@ -4,6 +4,7 @@ import Dummy from './Dummy';
 import SolutionLetters from './Solutionletters';
 import ErrorLetters from './ErrorLetters';
 import Form from './Form';
+import Footer from './Footer';
 // api
 import getWordFromApi from '../services/api';
 // styles
@@ -12,6 +13,8 @@ import '../styles/Dummy.scss';
 import '../styles/Letters.scss';
 import '../styles/Form.scss';
 import '../styles/Header.scss';
+// React dom router
+import { Route, Routes } from 'react-router-dom';
 
 function App() {
   const [word, setWord] = useState('');
@@ -60,6 +63,7 @@ function App() {
           <Form handleChange={handleChange} lastLetter={lastLetter} />
           <Dummy numberOfErrors={getNumberOfErrors()} />
         </section>
+        <Footer />
       </main>
     </div>
   );
